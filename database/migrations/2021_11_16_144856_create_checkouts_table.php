@@ -15,7 +15,7 @@ class CreateCheckoutsTable extends Migration
     {
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('book_id');
+            $table->unsignedBigInteger('book_id')->unique();
             $table->foreign('book_id')
                 ->references('id')
                 ->on('books')
@@ -25,8 +25,7 @@ class CreateCheckoutsTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->cascade('delete');
-            $table->string('cardholder_id');
-            $table->timestamps('checked_out_at');
+            $table->timestamps();
         });
     }
 

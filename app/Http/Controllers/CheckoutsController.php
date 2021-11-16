@@ -40,7 +40,7 @@ class CheckoutsController extends Controller
          $faker = \Faker\Factory::create(2);
 
         $checkout = Checkout::create([
-            `created_at` => $faker->timestamp
+            'checked_out_at' => $faker->dateTime($max = 'now')
         ]);
 
         return new CheckoutsResource($checkout);
@@ -72,13 +72,13 @@ class CheckoutsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Checkouts  $checkouts
+     * @param  \App\Models\Checkout  $checkout
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Checkout $checkout)
     {
         $checkout->update([
-            `created_at` => $request->input(`created_at`)
+            'checked_out_at' => $request->input('checked_out_at')
         ]);
 
         return new CheckoutsResource($checkout);
