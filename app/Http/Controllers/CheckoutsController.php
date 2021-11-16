@@ -39,11 +39,11 @@ class CheckoutsController extends Controller
     {
          $faker = \Faker\Factory::create(2);
 
-        $checkouts = Checkout::create([
+        $checkout = Checkout::create([
             `created_at` => $faker->timestamp
         ]);
 
-        return new CheckoutsResource($checkouts);
+        return new CheckoutsResource($checkout);
     }
 
     /**
@@ -87,7 +87,7 @@ class CheckoutsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Checkouts  $checkouts
+     * @param  \App\Models\Checkout  $checkout
      * @return \Illuminate\Http\Response
      */
     public function checkIn(Checkout $checkout)
