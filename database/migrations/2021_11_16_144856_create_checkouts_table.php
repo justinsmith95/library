@@ -26,7 +26,7 @@ class CreateCheckoutsTable extends Migration
                 ->on('users')
                 ->cascade('delete');
             $table->string('cardholder_id');
-            $table->timestamps(`created_at`);
+            $table->timestamps('checked_out_at');
         });
     }
 

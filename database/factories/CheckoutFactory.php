@@ -14,7 +14,7 @@ class CheckoutFactory extends Factory
     public function definition()
     {
         return [
-            `created_at` => $this->faker->timestamp
+            'checked_out_at' => $this->faker->dateTime($max = 'now')
         ];
     }
 }
