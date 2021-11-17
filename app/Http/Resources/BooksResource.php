@@ -18,9 +18,9 @@ class BooksResource extends JsonResource
             'id' => (string)$this->id,
             'type' => 'Books',
             'attributes' => [
-            'title' => $this->title,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+                'title' => $this->title,
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at
             ]
         ];
     }

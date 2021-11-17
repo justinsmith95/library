@@ -6,6 +6,7 @@ use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Http\Resources\BooksResource;
 use App\Http\Requests\BooksRequest;
+use Illuminate\Support\Facades\Log;
 
 
 class BooksController extends Controller
@@ -17,8 +18,9 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
-        return $books->toArray();
+        return 'index method being called';
+        // $books = Book::all();
+        // return $books->toArray();
     }
 
     /**
@@ -39,15 +41,18 @@ class BooksController extends Controller
      */
     public function store(BooksRequest $request)
     {
-        // dd($request);
+        if ($request->user()->access_type > 1) {
+            $faker = \Faker\Factory::create(1);
 
-        $faker = \Faker\Factory::create(2);
+            $book = Book::create([
+                'title' => $request->title
+                // 'title' => $faker->title
+            ]);
 
-        $book = Book::create([
-            'title' => $faker->title
-        ]);
-
-        return new BooksResource($book);
+            return new BooksResource($book);
+        } else {
+            return 'User does not have permission to perform this task';
+        }
     }
 
     /**
@@ -80,13 +85,20 @@ class BooksController extends Controller
      * @param  \App\Models\Books  $books
      * @return \Illuminate\Http\Response
      */
-    public function updateBookTitle(BooksRequest $request, Book $book)
+    public function update(Request $request, Book $book)
     {
-        $book->update([
-            'title' => $request->input('title')
-        ]);
+        Log::info($request->input('title'));
+       if ($request->user()->access_type > 1) {
+           # code...
 
-        return new BooksResource($book);
+            $book->update([
+                'title' => $request->input('title')
+                ]);
+
+            return new BooksResource($book);
+        } else {
+            return 'User does not have permission to perform this task';
+        }
     }
 
     /**
@@ -95,9 +107,16 @@ class BooksController extends Controller
      * @param  \App\Models\Books  $books
      * @return \Illuminate\Http\Response
      */
-    public function destroyBook(Book $book)
+    public function delete(Book $book)
     {
-        $book->delete();
+         if ($request->user()->access_type > 1) {
+           # code...
+
+          $book->delete();
         return response(null, 204);
+            } else {
+                return 'User does not have permission to perform this task';
+            }
+
     }
 }
